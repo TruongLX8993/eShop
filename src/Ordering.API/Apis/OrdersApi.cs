@@ -138,10 +138,19 @@ public static class OrdersApi
         using (services.Logger.BeginScope(new List<KeyValuePair<string, object>> { new("IdentifiedCommandId", requestId) }))
         {
             var maskedCCNumber = request.CardNumber.Substring(request.CardNumber.Length - 4).PadLeft(request.CardNumber.Length, 'X');
-            var createOrderCommand = new CreateOrderCommand(request.Items, request.UserId, request.UserName, request.City, request.Street,
-                request.State, request.Country, request.ZipCode,
-                maskedCCNumber, request.CardHolderName, request.CardExpiration,
-                request.CardSecurityNumber, request.CardTypeId);
+            var createOrderCommand = new CreateOrderCommand(request.Items,
+                request.UserId,
+                request.UserName,
+                request.City,
+                request.Street,
+                request.State, 
+                request.Country,
+                request.ZipCode,
+                maskedCCNumber, // diff field => separate request vs command.
+                request.CardHolderName,
+                request.CardExpiration,
+                request.CardSecurityNumber,
+                request.CardTypeId);
 
             var requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(createOrderCommand, requestId);
 

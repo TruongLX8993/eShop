@@ -10,6 +10,12 @@ using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
 using Polly.Retry;
 
+/* DesignNote: use rabbitmq with one exchange-name
+ * DesignNote: use typeName of class integration event to create routing keys.
+ * DesignNote: When refactor ? where contract to share ? Currently, duplicate class.
+ *
+ * 
+ */
 public sealed class RabbitMQEventBus(
     ILogger<RabbitMQEventBus> logger,
     IServiceProvider serviceProvider,
